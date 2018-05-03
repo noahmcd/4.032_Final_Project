@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="style.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div>
+            <div id = "yearBtn">Year of refugee flow <br>
+                <button class="btn btn-default btnYear" id="2012">2012</button>
+                <button class="btn btn-default btnYear" id="2013">2013</button>
+                <button class="btn btn-default btnYear" id="2014">2014</button>
+                <button class="btn btn-default btnYear" id="2015">2015</button>
+                <button class="btn btn-default btnYear" id="2016">2016</button>
+            </div>
+            <div id = "fieldBtn">Modify link strength with political indices <br>
+                <button class="btn btn-default btnPol" id="Political Stability and Absence of Violence/Terrorism: Estimate">Political Stability</button>
+                <button class="btn btn-default btnPol" id="Rule of Law: Estimate">Rule of Law</button>
+                <button class="btn btn-default btnPol" id="Government Effectiveness: Estimate">Government Effectiveness</button>
+            </div>
+            <!--<div class="slidecontainer">Select minimum refugees moving between each country <br>
+                <input type="range" min="0" max="100" value="50" class="slider">
+            </div>-->
+            Minimum refugees moving between each country <br>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" >Number of Refugees:</span>
+                </div>
+                <input type="number" min="1" max="" placeholder="ex. 500" class="form-control" id="input1">
+            </div>
+            <div id = "svg"></div>
+        </div>
+        
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src = "script.js"></script>
+    </body>
+</html>
