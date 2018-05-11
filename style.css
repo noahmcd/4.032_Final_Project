@@ -5,12 +5,20 @@
 }
 
 #legend {
-    height: 240px;
+    height: 300px;
 }
 
 .node {
     stroke: black;
-    fill: black;
+    cursor: pointer;
+}
+
+.label {
+    cursor: pointer;
+}
+
+.link {
+    cursor: pointer;
 }
 
 .btn-default {

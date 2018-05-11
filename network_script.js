@@ -17,19 +17,17 @@ svg.append("rect")
 
 var queue = d3.queue()
     .defer(d3.csv, "data/refugees_5_largest.csv", parseRefugees)
-    .defer(d3.csv, "data/nodes.csv", function(d){return{id: d.ID}})
+    .defer(d3.csv, "data/nodes.csv", function(d){return{id: d.ID, group: d.group}})
     .defer(d3.csv, "data/government_stability.csv", parseStability)
     .await(network);
 
 function network(error, data, nodes, stability){
     if(error) throw error;
-    
     //default visualization settings
     var year = 2016;
     var indexPol = "Political Stability and Absence of Violence/Terrorism: Estimate";
     var numRefugees = 500
     //var maxRefugees = d3.max(data, function(d){return d.refugee});
-    //console.log(maxRefugees);
     
     //buttons to customize network
     d3.selectAll(".btnYear").on("click", function(){
@@ -55,11 +53,15 @@ function network(error, data, nodes, stability){
         .force("link", d3.forceLink().id(function(d) { return d.id; }))
         .force("center", d3.forceCenter(width/2, height/2))
         .force("charge", d3.forceManyBody().strength(-120));
+    //initial view
+    draw(year, indexPol, numRefugees);
     
+    //draws the network anytime a setting is changed
     function draw(year, indexPol, numRefugees){
         //restart simulation to draw updated data
-        d3.selectAll("circle").remove();
-        d3.selectAll("line").remove();
+        d3.selectAll(".node").remove();
+        d3.selectAll(".link").remove();
+        d3.selectAll(".label").remove();
         //simulation.stop();
         simulation.alpha(1).restart();
         
@@ -115,23 +117,38 @@ function network(error, data, nodes, stability){
             .selectAll("line")
             .data(links)
             .enter().append("line")
+            .attr("class", "link")
             .attr("stroke", "grey")
             .attr("stroke-width", function(d){return Math.sqrt(Math.sqrt(d.refugee/1000))});
 
         link.exit().remove();
         
+        var color = ["orange","red","green","yellow","brown","purple","blue"];
         var node = svg.append("g")
             .selectAll("circle")
             .data(nodes)
             .enter().append("circle")
             .attr("class", "node")
+            .attr("fill", function(d){return color[d.group-1]})
             .attr("r", function(d){
                 if(d.id == "Afghanistan" || d.id == "Nigeria" || d.id == "Syrian Arab Rep." || d.id == "Somalia" || d.id == "South Sudan")
                     return 7;
                 else return 4;
             });
-
+        
         node.exit().remove();
+        
+        var labels = svg.append("g")
+            .selectAll("text")
+            .data(nodes)
+            .enter().append("text")
+            .attr("class", "label")
+            .text(function(d){
+                if(d.id == "Afghanistan" || d.id == "Nigeria" || d.id == "Syrian Arab Rep." || d.id == "Somalia" || d.id == "South Sudan")
+                    return d.id;
+                });
+        
+        labels.exit().remove();
         
         node.append("title")
             .text(function(d) { return d.id; });
@@ -147,13 +164,11 @@ function network(error, data, nodes, stability){
         //link strength based on num refugees and political indicators
         //polSource + polSink, prob needs array index oob throw
         simulation.force("link").links(links).strength(function(d, i){
-            //var sourceIndex = searchData(d.source.id, stable);
-            //var targetIndex = searchData(d.target.id, stable);
             var sourceVal = 0;
             var targetVal = 0;
-            var i = 0;
             var foundS = false;
-            var foundT = false
+            var foundT = false;
+            var i = 0;
             while(i<stable.length && !(foundS && foundT)){
                 if(stable[i].id == d.source.id){
                     sourceVal = stable[i].value;
@@ -165,8 +180,6 @@ function network(error, data, nodes, stability){
                 }
                 i++;
             }
-            //console.log(targetVal+" "+sourceVal);
-            
             return 1-Math.abs((targetVal+sourceVal))/6;
             //strengthScale(d.refugee);
         });
@@ -186,24 +199,40 @@ function network(error, data, nodes, stability){
         node
             .attr("cx", function(d) {return d.x})
             .attr("cy", function(d) {return d.y});
+            
+        labels
+            .attr("x", function(d) {return 10+d.x})
+            .attr("y", function(d) {return d.y});
         }
         //end section
-    }
-    
+        
+        svg.selectAll("g").call(d3.drag()
+            .on("drag", dragged));
+        
+        //modified from https://bl.ocks.org/mbostock/22994cc97fefaeede0d861e6815a847e
+        function dragged(d){
+            //console.log("drag: "+d3.select(this).selectAll("text"))
+            simulation.stop();
+            link
+                .attr("x1", function(d){return d.source.x})
+                .attr("y1", function(d){return d.source.y})
+                .attr("x2", function(d){return d.target.x})
+                .attr("y2", function(d){return d.target.y});
+            
+            node
+                .attr("cx", function(d){d.x += d3.event.dx;
+                                        return d.x})
+                .attr("cy", function(d){d.y += d3.event.dy;
+                                        return d.y});
+            labels
+                .attr("x", function(d){d.x += d3.event.dx;
+                                       return d.x+10})
+                .attr("y", function(d){d.y += d3.event.dy;
+                                       return d.y + d3.event.dy});
+        }
+        //end section
+    }  
 }
-
-//returns the index of a key in dict matching country
-/*function searchData(country, dict){
-    var i = 0;
-    var found = false;
-    while(i<dict.length || !found){
-        if(dict[i].id == country)
-            found = true;
-        else i++;
-    }
-    if(found) return i;
-    else return -1;
-}*/
 
 function parseRefugees(d){
     return{
@@ -225,4 +254,47 @@ function parseStability(d){
         val16: +d[2016],
         indicator: d.SeriesName,
     }
+}
+
+//Legend//
+var widthLegend = d3.select("#leg-div").node().clientWidth;
+var heightLegend = widthLegend;
+
+var legend = d3.select("#legend")
+    .append("svg")
+    .attr("width", widthLegend)
+    .attr("height", heightLegend);
+
+var color = ["orange","red","green","yellow","brown","purple","blue"];
+var region = ["North America & Europe","Central/South America","Sub-Saharan Africa","Former USSR","Middle East & North Africa","East Asia","Oceania"];
+
+for(var i=0; i<color.length; i++){
+    var item = legend.append("g")
+        .attr("transform", "translate(8,"+((i*25)+10)+")");
+    item.append("circle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", 5)
+        .attr("fill", color[i])
+        .attr("stroke", "black");
+    item.append("text")
+        .attr("x", 10)
+        .attr("y", 5)
+        .text(region[i]);
+}
+
+for(var i=10; i<=100000; i*=10){
+    var item = legend.append("g")
+        .attr("transform", "translate(0,"+((Math.log10(i)*25)+160)+")");
+    item.append("line")
+        .attr("stroke", "grey")
+        .attr("stroke-width", Math.sqrt(Math.sqrt(i/1000)))
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", 40)
+        .attr("y2", 0);
+    item.append("text")
+        .attr("x", 45)
+        .attr("y", 5)
+        .text(i+" Refugees");
 }
