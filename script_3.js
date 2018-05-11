@@ -6,7 +6,7 @@ var plot3=d3.select('#plot3').append('svg')
     .attr('width',width+margin.r+margin.l)
     .attr('height',height+margin.t+margin.b)
     .append("g")
-    .attr("transform","translate("+(20+margin.l)+","+margin.t+")");
+    .attr("transform","translate("+(40+margin.l)+","+margin.t+")");
 
 var x = d3.scaleBand().range([0,width]);
 var y = d3.scaleLinear().range([height,0]);
