@@ -1,5 +1,4 @@
 var margin={t: 40, r: 5, b: 40, l: 5};
-
 var width = d3.select('#plot3').node().clientWidth - margin.r - margin.l,
     height = d3.select('#plot3').node().clientHeight - margin.t - margin.b;
 
@@ -65,50 +64,54 @@ function dataloaded(error,data){
         console.log(indices);
         draw(thisYear, indices)
     })
+
+    function draw(year, data){
+        console.log(year)
+
+        x.domain(data.map(function(d){return d.Country;}));
+        y.domain(d3.extent(data, function(d){return +d.year}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
+
+        var barWidth=width/data.length;
+        var bars=plot3.selectAll(".bar").remove().exit().data(data);
+
+        bars.enter().append("rect")
+            .attr("class","bar")
+            .attr("x",function(d,i){ return i*barWidth+1;})
+            .attr("y",function(d){ return height-y(d.value);})
+            .attr("height",function(d){ return y(d.value);})
+            .attr("width",barWidth-1)
+            .attr("fill","#99bbff");
+    }
+
+    plot3.append("g")
+        .attr("class", "yAxis")
+        .call(yAxis);
+
+    plot3.append("g")
+        .attr("class","xAxis")
+        .attr("transform","translate(0,"+height+")")
+        .call(xAxis)
+        .selectAll("text")
+        .data(data)
+        .enter()
+        .style("text-anchor","end")
+        .attr("transform",function(d){return "rotate(-65)";})
+        .text(function(d){return d.Country});
+        //^this might throw an error
+
+    plot3.append("text")
+        .attr("transform","translate(-25,"+(height+margin.b)/2+") rotate(-90)")
+        .attr("x", 0)
+        .attr("y", 0)
+        .text("Political Stability Index");
+
+    plot3.append("text")
+        .attr("transform","translate("+width/2+","+(height + margin.b - 5)+")")
+        .attr("x", 0)
+        .attr("y", 0)
+        .text("Country");
 }
-
-function draw(year, data){
-    console.log(year)
-
-    x.domain(data.map(function(d){return d.Country;}));
-    y.domain(d3.extent(data, function(d){return +d.year}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
-
-    var barWidth=width/data.length;
-    var bars=plot3.selectAll(".bar").remove().exit().data(data);
-
-    bars.enter().append("rect")
-        .attr("class","bar")
-        .attr("x",function(d,i){ return i*barWidth+1;})
-        .attr("y",function(d){ return height;})
-        .attr("height",function(d){ return height-y(d.value);})
-        .attr("length",barWidth-1)
-        .attr("fill","#99bbff");
-}
-
-plot3.append("g")
-    .attr("class", ".y")
-    .call(yAxis);
     
-plot3.append("g")
-    .attr("class",".xAxis")
-    .attr("transform","translate(0,"+height+")")
-    .call(xAxis).selectAll("text")
-    .style("text-anchor","end")
-    .attr("transform",function(d){return "rotate(-65)";});
-    //^this might throw an error
-
-plot3.append("text")
-    .attr("transform","translate(-25,"+(height+margin.b)/2+") rotate(-90)")
-    .attr("x", 0)
-    .attr("y", 0)
-    .text("Political Stability Index");
-
-plot3.append("text")
-    .attr("transform","translate("+width/2+","+(height + margin.b - 5)+")")
-    .attr("x", 0)
-    .attr("y", 0)
-    .text("Country");
-
 function parseData(d){
     return{
         Country: d.Country,
