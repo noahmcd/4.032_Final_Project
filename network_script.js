@@ -1,19 +1,21 @@
-var width = d3.select("#svg").node().clientWidth;
-var height = 600;//d3.select("#svg").node().clientHeight;
+var widthSVG = d3.select("#svg").node().clientWidth;
+var heightSVG = 600;//d3.select("#svg").node().clientHeight;
 
 var svg = d3.select("#svg")
     .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("width", widthSVG)
+    .attr("height", heightSVG);
 
 svg.append("rect")
     .attr("fill", "none")
     .attr("stroke", "black")
     .attr("stroke-width", "1px")
-    .attr("width", width)
-    .attr("height", height)
+    .attr("width", widthSVG)
+    .attr("height", heightSVG)
     .attr("rx", 10)
     .attr("ry", 10);
+
+var color = ["orange","red","green","yellow","brown","purple","blue"];
 
 var queue = d3.queue()
     .defer(d3.csv, "data/refugees_5_largest.csv", parseRefugees)
@@ -40,7 +42,6 @@ function network(error, data, nodes, stability){
         draw(year, indexPol, numRefugees);
     });
     
-    //this is a lil borked
     d3.select(".form-control").on("input", function(){
         numRefugees = this.value;
         if(numRefugees>0)
@@ -51,7 +52,7 @@ function network(error, data, nodes, stability){
     var simulation = d3.forceSimulation()
         //.velocityDecay(.6)
         .force("link", d3.forceLink().id(function(d) { return d.id; }))
-        .force("center", d3.forceCenter(width/2, height/2))
+        .force("center", d3.forceCenter(widthSVG/2, heightSVG/2))
         .force("charge", d3.forceManyBody().strength(-120));
     //initial view
     draw(year, indexPol, numRefugees);
@@ -62,7 +63,6 @@ function network(error, data, nodes, stability){
         d3.selectAll(".node").remove();
         d3.selectAll(".link").remove();
         d3.selectAll(".label").remove();
-        //simulation.stop();
         simulation.alpha(1).restart();
         
         //filter based on political index
@@ -109,7 +109,7 @@ function network(error, data, nodes, stability){
             }
         }
         
-        //filter connections on year and number of refugees
+        //filter links on year and number of refugees
         var links = data.filter(function(d){return (d.year == year && d.refugee>=numRefugees)});
         
         //modified from https://bl.ocks.org/mbostock/4062045
@@ -120,10 +120,8 @@ function network(error, data, nodes, stability){
             .attr("class", "link")
             .attr("stroke", "grey")
             .attr("stroke-width", function(d){return Math.sqrt(Math.sqrt(d.refugee/1000))});
-
         link.exit().remove();
         
-        var color = ["orange","red","green","yellow","brown","purple","blue"];
         var node = svg.append("g")
             .selectAll("circle")
             .data(nodes)
@@ -135,7 +133,6 @@ function network(error, data, nodes, stability){
                     return 7;
                 else return 4;
             });
-        
         node.exit().remove();
         
         var labels = svg.append("g")
@@ -147,7 +144,6 @@ function network(error, data, nodes, stability){
                 if(d.id == "Afghanistan" || d.id == "Nigeria" || d.id == "Syrian Arab Rep." || d.id == "Somalia" || d.id == "South Sudan")
                     return d.id;
                 });
-        
         labels.exit().remove();
         
         node.append("title")
@@ -158,9 +154,6 @@ function network(error, data, nodes, stability){
         simulation.nodes(nodes)
             .on("tick", ticked);
         
-        //add links with strengths
-        var strengthScale = d3.scaleLog().domain(d3.extent(links, function(d){return d.refugee})).range([.5,1]);
-
         //link strength based on num refugees and political indicators
         //polSource + polSink, prob needs array index oob throw
         simulation.force("link").links(links).strength(function(d, i){
@@ -193,8 +186,8 @@ function network(error, data, nodes, stability){
             .attr("x2", function(d) {return d.target.x})
             .attr("y2", function(d) {return d.target.y});
 
-        nodes[0].x = width/2;
-        nodes[0].y = height/2;
+        nodes[0].x = widthSVG/2;
+        nodes[0].y = heightSVG/2;
         
         node
             .attr("cx", function(d) {return d.x})
@@ -211,7 +204,6 @@ function network(error, data, nodes, stability){
         
         //modified from https://bl.ocks.org/mbostock/22994cc97fefaeede0d861e6815a847e
         function dragged(d){
-            //console.log("drag: "+d3.select(this).selectAll("text"))
             simulation.stop();
             link
                 .attr("x1", function(d){return d.source.x})
@@ -231,6 +223,20 @@ function network(error, data, nodes, stability){
                                        return d.y + d3.event.dy});
         }
         //end section
+        
+        var info = svg.append("g");
+        info.append("text")
+            .attr("class", "label")
+            .attr("x", 10)
+            .attr("y", 20)
+            .text("Year: "+year);
+        if(indexPol=="Political Stability and Absence of Violence/Terrorism: Estimate")
+            indexPol="Political Stability: Estimate";
+        info.append("text")
+            .attr("class", "label")
+            .attr("x", 10)
+            .attr("y", 40)
+            .text("Index: "+indexPol);
     }  
 }
 
@@ -265,7 +271,7 @@ var legend = d3.select("#legend")
     .attr("width", widthLegend)
     .attr("height", heightLegend);
 
-var color = ["orange","red","green","yellow","brown","purple","blue"];
+//var color = ["orange","red","green","yellow","brown","purple","blue"];
 var region = ["North America & Europe","Central/South America","Sub-Saharan Africa","Former USSR","Middle East & North Africa","East Asia","Oceania"];
 
 for(var i=0; i<color.length; i++){
