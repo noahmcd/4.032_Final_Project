@@ -15,7 +15,7 @@ svg.append("rect")
     .attr("rx", 10)
     .attr("ry", 10);
 
-var color = ["orange","red","green","yellow","brown","purple","blue"];
+var nodeColor = ["orange","red","green","yellow","brown","purple","blue"];
 
 var queue = d3.queue()
     .defer(d3.csv, "data/refugees_5_largest.csv", parseRefugees)
@@ -127,7 +127,7 @@ function network(error, data, nodes, stability){
             .data(nodes)
             .enter().append("circle")
             .attr("class", "node")
-            .attr("fill", function(d){return color[d.group-1]})
+            .attr("fill", function(d){return nodeColor[d.group-1]})
             .attr("r", function(d){
                 if(d.id == "Afghanistan" || d.id == "Nigeria" || d.id == "Syrian Arab Rep." || d.id == "Somalia" || d.id == "South Sudan")
                     return 7;
@@ -274,14 +274,14 @@ var legend = d3.select("#legend")
 //var color = ["orange","red","green","yellow","brown","purple","blue"];
 var region = ["North America & Europe","Central/South America","Sub-Saharan Africa","Former USSR","Middle East & North Africa","East Asia","Oceania"];
 
-for(var i=0; i<color.length; i++){
+for(var i=0; i<nodeColor.length; i++){
     var item = legend.append("g")
         .attr("transform", "translate(8,"+((i*25)+10)+")");
     item.append("circle")
         .attr("cx", 0)
         .attr("cy", 0)
         .attr("r", 5)
-        .attr("fill", color[i])
+        .attr("fill", nodeColor[i])
         .attr("stroke", "black");
     item.append("text")
         .attr("x", 10)
