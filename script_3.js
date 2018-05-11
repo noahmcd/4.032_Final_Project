@@ -22,7 +22,8 @@ function dataloaded(error,data){
         var thisYear=this.getAttribute("id");
         draw(thisYear)
     })
-    
+}
+
 function draw(year){
     console.log(year)
 
@@ -66,6 +67,7 @@ plot3.append("text")
 
 function parseData(d){
     return{
-        Country: d.Country
+        Country: d.Country,
+        year: d.year
     }
 }
