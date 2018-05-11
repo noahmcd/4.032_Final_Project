@@ -78,9 +78,9 @@ function draw(year, data){
     bars.enter().append("rect")
         .attr("class","bar")
         .attr("x",function(d,i){ return i*barWidth+1;})
-        .attr("y",function(d){ return y(d.value);})
+        .attr("y",function(d){ return height;})
         .attr("height",function(d){ return height-y(d.value);})
-        .attr("width",barWidth-1)
+        .attr("length",barWidth-1)
         .attr("fill","#99bbff");
 }
 
