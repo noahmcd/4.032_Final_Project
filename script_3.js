@@ -78,7 +78,7 @@ function dataloaded(error,data){
             .data(data)
             .enter().append("rect")
             .attr("class","bar")
-            .attr("x",function(d,i){ return i*barWidth+41;})
+            .attr("x",function(d,i){ return i*barWidth+61;})
             .attr("y",function(d){ return height - y(d.value);})
             .attr("height",function(d){ return Math.abs(y(d.value));})
             .attr("width",barWidth-1)
@@ -89,14 +89,14 @@ function dataloaded(error,data){
 
     plot3.append("g")
         .attr("class", "yAxis")
-        .attr("transform","translate(40,0)")
+        .attr("transform","translate(60,0)")
         .call(yAxis);
 
     var barWidth=(width-50)/data.length;
     
     var drawXAxis = plot3.append("g")
         .attr("class","xAxis")
-        .attr("transform","translate(40,"+height+")")
+        .attr("transform","translate(60,"+height+")")
         .call(xAxis);
     
     /*drawXAxis.append("title")
@@ -113,7 +113,7 @@ function dataloaded(error,data){
 
     plot3.append("g")
         .append("text")
-        .attr("transform","translate(-35,"+(height+margin.b)/2+") rotate(-90)")
+        .attr("transform","translate(0,"+(height+margin.b)/2+") rotate(-90)")
         .attr("x", 0)
         .attr("y", 0)
         .text("Political Stability Index");
