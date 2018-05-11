@@ -22,7 +22,7 @@ function dataloaded(error,data){
         var thisYear=this.getAttribute("id");
         var indices = []
         for(var i=0; i<data.length; i++){
-            switch(year){
+            switch(thisYear){
                 case 2012: 
                     indices.push({
                     Country: data[i].id,
