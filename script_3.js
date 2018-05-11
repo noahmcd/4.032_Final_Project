@@ -65,6 +65,8 @@ function dataloaded(error,data){
     })
 
     function draw(year, data){
+        d3.selectAll(".bar").remove();
+        
         x.domain(data.map(function(d){return d.Country;}));
         y.domain(d3.extent(data, function(d){return +d.value}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
 
@@ -77,7 +79,7 @@ function dataloaded(error,data){
             .attr("class","bar")
             .attr("x",function(d,i){ return i*barWidth+1;})
             .attr("y",function(d){ return height - y(d.value);})
-            .attr("height",function(d){ return y(d.value);})
+            .attr("height",function(d){ return Math.abs(y(d.value));})
             .attr("width",barWidth-1)
             .attr("fill","#99bbff");
         
@@ -101,7 +103,7 @@ function dataloaded(error,data){
         //^this might throw an error
 
     plot3.append("text")
-        .attr("transform","translate(-25,"+(height+margin.b)/2+") rotate(-90)")
+        .attr("transform","translate(-35,"+(height+margin.b)/2+") rotate(-90)")
         .attr("x", 0)
         .attr("y", 0)
         .text("Political Stability Index");
