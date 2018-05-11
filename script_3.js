@@ -1,4 +1,5 @@
 var margin={t: 40, r: 5, b: 40, l: 5};
+
 var width = d3.select('#plot3').node().clientWidth - margin.r - margin.l,
     height = d3.select('#plot3').node().clientHeight - margin.t - margin.b;
 

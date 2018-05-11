@@ -3,24 +3,25 @@ var queue = d3.queue()
     .defer(d3.csv, "map data/2016 refugees.csv", parseRefugeeData)
     .await(dateLoaded);
 
-var margin = {t: 40, r: 5, b: 40, l: 5};
+var mapMargin = {t: 40, r: 5, b: 40, l: 5};
 
-var width  = d3.select('#map-viz').node().clientWidth  - margin.r - margin.l;
-var height = d3.select('#map-viz').node().clientHeight - margin.t - margin.b;
+var mapWidth  = d3.select('#map-viz').node().clientWidth  - mapMargin.r - mapMargin.l;
+var mapHeight = d3.select('#map-viz').node().clientHeight - mapMargin.t - mapMargin.b;
 
 var plot1 = d3.select('#map-viz') 
             .append('svg')
-            .attr('width',  width  + margin.r + margin.l)
-            .attr('height', height + margin.t + margin.b);
+            .attr('width',  mapWidth  + mapMargin.r + mapMargin.l)
+            .attr('height', mapHeight + mapMargin.t + mapMargin.b);
 
-var plotPulses = plot1.append('g').attr('transform', 'translate(' + margin.l + ',' + margin.t + ')').attr('class', 'pulses');
+var plotPulses = plot1.append('g').attr('transform', 'translate(' + mapMargin.l + ',' + mapMargin.t + ')').attr('class', 'pulses');
 
 var blue   = "#66b2c5";
 var yellow = "#ffb400";
 var red    = "#c63232";
 var green  = "#72a746";
-var maxR   = height;
-var minR   = height/10;
+var maxR   = mapHeight;
+var minR   = mapHeight/10;
+
 
 var locations = {
     "South Sudan": {
@@ -156,14 +157,14 @@ function Pulses(data) {
             .append("circle")
             .attr("class",className + " pulses")
             .attr("cx", function(d){
-                return width * d.cx
+                return mapWidth * d.cx
             });
 
         spots
             .enter()
             .append("text")
-            .attr("x", function(d) { return width * d.cx })
-            .attr("y", function(d) { return height * d.cy })
+            .attr("x", function(d) { return mapWidth * d.cx })
+            .attr("y", function(d) { return mapHeight * d.cy })
             .text(function(d) { return d.name });
 
         repeat();
@@ -178,7 +179,7 @@ function Pulses(data) {
                 .style("fill", color)
                 .style("opacity",1)
                 .attr("cy",  function(d){
-                    return height * d.cy
+                    return mapHeight * d.cy
                 })
                 .transition()
                 .duration(rate * 1000)
