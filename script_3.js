@@ -69,7 +69,6 @@ function dataloaded(error,data){
         
         x.domain(data.map(function(d){return d.Country;}));
         y.domain(d3.extent(data, function(d){return +d.value}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
-        console.log(d3.min(data,function(d){return +d.value;}));
         
         var barWidth=(width-60)/data.length;
         
@@ -83,6 +82,9 @@ function dataloaded(error,data){
             .attr("height",function(d){ return Math.abs(y(d.value));})
             .attr("width",barWidth-1)
             .attr("fill","#99bbff");
+        
+        bars.append("title")
+            .text(function(d) { return d.Country; });
         
         bars.exit().remove();
     }
@@ -99,8 +101,6 @@ function dataloaded(error,data){
         .attr("transform","translate(60,"+height+")")
         .call(xAxis);
     
-    /*drawXAxis.append("title")
-            .text(function(d) { return d.Country; });*/
     /*drawXAxis.selectAll("text")
         .data(data)
         .enter().append("text")
@@ -118,12 +118,12 @@ function dataloaded(error,data){
         .attr("y", 0)
         .text("Political Stability Index");
 
-    plot3.append("g")
+    /*plot3.append("g")
         .append("text")
         .attr("transform","translate("+width/2+","+(height + margin.b - 5)+")")
         .attr("x", 0)
         .attr("y", 0)
-        .text("Country");
+        .text("Country");*/
 }
     
 function parseData(d){
