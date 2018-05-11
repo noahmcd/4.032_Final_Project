@@ -116,7 +116,7 @@ function dataloaded(error,data){
         .attr("transform","translate(20,"+(height+margin.b)/2+") rotate(-90)")
         .attr("x", 0)
         .attr("y", 0)
-        .text("Political Stability Index");
+        .text("Political Instability");
 
     /*plot3.append("g")
         .append("text")
