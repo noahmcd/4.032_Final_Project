@@ -26,7 +26,7 @@ function addRefugee(x, y) {
             //console.log("drawingggg", className)
 
             refugee
-                .style("opacity",1)
+                .style("opacity",.7)
                 .transition()
                 .duration(1000*Math.random() + 1000)
                 .style("opacity",0)
