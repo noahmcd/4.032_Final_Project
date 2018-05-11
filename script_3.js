@@ -6,9 +6,9 @@ var plot3=d3.select('#plot3').append('svg')
     .attr('width',width+margin.r+margin.l)
     .attr('height',height+margin.t+margin.b)
     .append("g")
-    .attr("transform","translate("+(50+margin.l)+","+margin.t+")");
+    .attr("transform","translate("+(margin.l)+","+margin.t+")");
 
-var x = d3.scaleBand().range([0,width]);
+var x = d3.scaleBand().range([40,width]);
 var y = d3.scaleLinear().range([height,0]);
 
 var xAxis = d3.axisBottom(x);
@@ -69,7 +69,7 @@ function dataloaded(error,data){
         
         x.domain(data.map(function(d){return d.Country;}));
         y.domain(d3.extent(data, function(d){return +d.value}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
-        console.log(d3.min(data,function(d){return +d.year;}));
+        console.log(d3.min(data,function(d){return +d.value;}));
         
         var barWidth=width/data.length;
         
@@ -95,7 +95,7 @@ function dataloaded(error,data){
     
     var drawXAxis = plot3.append("g")
         .attr("class","xAxis")
-        .attr("transform","translate(0,"+height+")")
+        .attr("transform","translate(40,"+height+")")
         .call(xAxis);
     
     drawXAxis.append("title")
