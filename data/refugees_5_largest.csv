@@ -661,7 +661,6 @@ Year,Destination,Origin,Refugees,AsylumSeekers
 2013,Libya,Nigeria,,1
 2013,Libya,Somalia,167,1830
 2013,Libya,Syrian Arab Rep.,16796,
-2013,Saint Lucia,Syrian Arab Rep.,1,0
 2013,Liechtenstein,Somalia,26,3
 2013,Sri Lanka,Afghanistan,,23
 2013,Sri Lanka,Somalia,,1
@@ -1122,7 +1121,6 @@ Year,Destination,Origin,Refugees,AsylumSeekers
 2014,Libya,Nigeria,0,1
 2014,Libya,Somalia,164,2168
 2014,Libya,Syrian Arab Rep.,18653,0
-2014,Saint Lucia,Syrian Arab Rep.,1,0
 2014,Liechtenstein,Nigeria,0,1
 2014,Liechtenstein,Somalia,28,21
 2014,Liechtenstein,Syrian Arab Rep.,5,0
@@ -1619,7 +1617,6 @@ Year,Destination,Origin,Refugees,AsylumSeekers
 2015,Libya,Nigeria,0,1
 2015,Libya,Somalia,164,2168
 2015,Libya,Syrian Arab Rep.,97,18591
-2015,Saint Lucia,Syrian Arab Rep.,0,1
 2015,Liechtenstein,Afghanistan,0,7
 2015,Liechtenstein,Somalia,45,4
 2015,Liechtenstein,Syrian Arab Rep.,23,1
@@ -2120,7 +2117,6 @@ Year,Destination,Origin,Refugees,AsylumSeekers
 2016,Libya,Nigeria,0,*
 2016,Libya,Somalia,164,2176
 2016,Libya,Syrian Arab Rep.,142,19366
-2016,Saint Lucia,Syrian Arab Rep.,*,*
 2016,Liechtenstein,Afghanistan,0,7
 2016,Liechtenstein,Somalia,47,9
 2016,Liechtenstein,Syrian Arab Rep.,23,0
