@@ -90,16 +90,17 @@ function dataloaded(error,data){
         .attr("class", "yAxis")
         .call(yAxis);
 
+    var barWidth=width/data.length;
     plot3.append("g")
         .attr("class","xAxis")
-        .call(xAxis)
         .selectAll("text")
         .data(data)
         .enter().append("text")
         .attr("transform","translate(0,"+height+")")
+        .call(xAxis)
         .style("text-anchor","end")
         .attr("transform",function(d){return "rotate(-65)";})
-        .attr("x", function(d){return d.Country})
+        .attr("x", function(d,i){ return i*barWidth+1;})
         .attr("y", 0)
         .text(function(d){return d.Country});
         //^this might throw an error
