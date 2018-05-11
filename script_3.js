@@ -81,7 +81,7 @@ function dataloaded(error,data){
             .attr("y",function(d){ return height - y(d.value);})
             .attr("height",function(d){ return Math.abs(y(d.value));})
             .attr("width",barWidth-1)
-            .attr("fill","#99bbff");
+            .attr("fill","#e8c0c8");
         
         bars.append("title")
             .text(function(d) { return d.Country; });
