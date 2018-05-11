@@ -11,8 +11,8 @@ var plot3=d3.select('#plot3').append('svg')
 var x = d3.scaleBand().range([0,width]);
 var y = d3.scaleLinear().range([height,0]);
 
-var xAxis = d3.axisBottom();
-var yAxis = d3.axisLeft.ticks(10);
+var xAxis = d3.axisBottom(x);
+var yAxis = d3.axisLeft(y).ticks(10);
 
 var queue=d3.queue().defer(d3.csv,"data/political_stability.csv",parseData)
     .await(dataloaded);
@@ -68,6 +68,6 @@ plot3.append("text")
 function parseData(d){
     return{
         Country: d.Country,
-        year: d.year
+        //year: d.year
     }
 }
