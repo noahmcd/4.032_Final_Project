@@ -91,18 +91,20 @@ function dataloaded(error,data){
         .call(yAxis);
 
     var barWidth=width/data.length;
+    
     plot3.append("g")
         .attr("class","xAxis")
-        .selectAll("text")
+        .attr("transform","translate(0,"+height+")")
+        .call(xAxis);
+    
+    /*drawXAxis.selectAll("text")
         .data(data)
         .enter().append("text")
-        .attr("transform","translate(0,"+height+")")
-        .call(xAxis)
         .style("text-anchor","end")
         .attr("transform",function(d){return "rotate(-65)";})
         .attr("x", function(d,i){ return i*barWidth+1;})
         .attr("y", 0)
-        .text(function(d){return d.Country});
+        .text(function(d){return d.Country});*/
         //^this might throw an error
 
     plot3.append("text")
