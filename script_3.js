@@ -23,37 +23,37 @@ function dataloaded(error,data){
         var indices = []
         for(var i=0; i<data.length; i++){
             switch(thisYear){
-                case 2012: 
+                case "2012": 
                     indices.push({
                     Country: data[i].id,
                     value: data[i].val12
                     });
                     break;
-                case 2013: 
+                case "2013": 
                     indices.push({
                     id: data[i].id,
                     value: data[i].val13
                     });
                     break;
-                case 2014: 
+                case "2014": 
                     indices.push({
                     id: data[i].id,
                     value: data[i].val14
                     });
                     break;
-                case 2015: 
+                case "2015": 
                     indices.push({
                     id: data[i].id,
                     value: data[i].val15
                     });
                     break;
-                case 2016: 
+                case "2016": 
                     indices.push({
                     id: data[i].id,
                     value: data[i].val16
-                    });
+                    })
                     break;
-                case Average: 
+                case "Average": 
                     indices.push({
                     id: data[i].id,
                     value: data[i].average
