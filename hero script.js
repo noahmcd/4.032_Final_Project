@@ -32,7 +32,7 @@ function addRefugee(x, y) {
                 .style("opacity",0)
                 .transition()
                 .duration(1000*Math.random() + 1000)
-                .style("opacity",1)
+                .style("opacity",.7)
                 .on("end", repeat);
         }
 }
