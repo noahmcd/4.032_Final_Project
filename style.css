@@ -60,6 +60,14 @@ h3 {
     opacity: 1;
 }
 
+.input-group-text{ 
+    background-color: #FAFAF2;
+    border: solid 1px #C1BB82;
+}
+
+.input-group input {
+    border: solid 1px #C1BB82;
+}
 
 #hero {
     height: 100vh;
