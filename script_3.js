@@ -6,7 +6,7 @@ var plot3=d3.select('#plot3').append('svg')
     .attr('width',width+margin.r+margin.l)
     .attr('height',height+margin.t+margin.b)
     .append("g")
-    .attr("transform","translate("+(20+margin.l)+","+margin.t+")");
+    .attr("transform","translate("+(40+margin.l)+","+margin.t+")");
 
 var x = d3.scaleBand().range([0,width]);
 var y = d3.scaleLinear().range([height,0]);
@@ -72,15 +72,19 @@ function dataloaded(error,data){
         y.domain(d3.extent(data, function(d){return +d.year}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
 
         var barWidth=width/data.length;
-        var bars=plot3.selectAll(".bar").remove().exit().data(data);
-
-        bars.enter().append("rect")
+        
+        var bars = plot3.append("g")
+            .selectAll("rect")
+            .data(data)
+            .enter().append("rect")
             .attr("class","bar")
             .attr("x",function(d,i){ return i*barWidth+1;})
             .attr("y",function(d){ return height-y(d.value);})
             .attr("height",function(d){ return y(d.value);})
             .attr("width",barWidth-1)
             .attr("fill","#99bbff");
+        
+        bars.exit().remove();
     }
 
     plot3.append("g")
