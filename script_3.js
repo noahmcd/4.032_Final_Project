@@ -25,37 +25,37 @@ function dataloaded(error,data){
             switch(thisYear){
                 case "2012": 
                     indices.push({
-                    Country: data[i].id,
+                    Country: data[i].Country,
                     value: data[i].val12
                     });
                     break;
                 case "2013": 
                     indices.push({
-                    id: data[i].id,
+                    Country: data[i].Country,
                     value: data[i].val13
                     });
                     break;
                 case "2014": 
                     indices.push({
-                    id: data[i].id,
+                    Country: data[i].Country,
                     value: data[i].val14
                     });
                     break;
                 case "2015": 
                     indices.push({
-                    id: data[i].id,
+                    Country: data[i].Country,
                     value: data[i].val15
                     });
                     break;
                 case "2016": 
                     indices.push({
-                    id: data[i].id,
+                    Country: data[i].Country,
                     value: data[i].val16
                     })
                     break;
                 case "Average": 
                     indices.push({
-                    id: data[i].id,
+                    Country: data[i].Country,
                     value: data[i].average
                     });
                     break;
