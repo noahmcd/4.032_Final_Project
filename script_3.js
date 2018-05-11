@@ -61,15 +61,12 @@ function dataloaded(error,data){
                     break;
             }
         }
-        console.log(indices);
         draw(thisYear, indices)
     })
 
     function draw(year, data){
-        console.log(year)
-
         x.domain(data.map(function(d){return d.Country;}));
-        y.domain(d3.extent(data, function(d){return +d.year}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
+        y.domain(d3.extent(data, function(d){return +d.value}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
 
         var barWidth=width/data.length;
         
@@ -79,7 +76,7 @@ function dataloaded(error,data){
             .enter().append("rect")
             .attr("class","bar")
             .attr("x",function(d,i){ return i*barWidth+1;})
-            .attr("y",function(d){ return height-y(d.value);})
+            .attr("y",function(d){ return height - y(d.value);})
             .attr("height",function(d){ return y(d.value);})
             .attr("width",barWidth-1)
             .attr("fill","#99bbff");
@@ -91,7 +88,7 @@ function dataloaded(error,data){
         .attr("class", "yAxis")
         .call(yAxis);
 
-    plot3.append("g")
+    /*plot3.append("g")
         .attr("class","xAxis")
         .attr("transform","translate(0,"+height+")")
         .call(xAxis)
@@ -100,7 +97,7 @@ function dataloaded(error,data){
         .enter()
         .style("text-anchor","end")
         .attr("transform",function(d){return "rotate(-65)";})
-        .text(function(d){return d.Country});
+        .text(function(d){return d.Country});*/
         //^this might throw an error
 
     plot3.append("text")
