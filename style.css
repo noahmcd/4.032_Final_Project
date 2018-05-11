@@ -35,7 +35,8 @@ h3 {
 }
 
 .btn-default {
-    background-color: #eaeaea;
+    background-color: #FAFAF2;
+    border: solid 1px #C1BB82;
     opacity: .7;
     font-size: 10pt;
     margin-bottom: 10px;
