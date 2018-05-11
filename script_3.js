@@ -69,7 +69,8 @@ function dataloaded(error,data){
         
         x.domain(data.map(function(d){return d.Country;}));
         y.domain(d3.extent(data, function(d){return +d.value}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
-
+        console.log(d3.min(data,function(d){return +d.year;}));
+        
         var barWidth=width/data.length;
         
         var bars = plot3.append("g")
@@ -92,11 +93,13 @@ function dataloaded(error,data){
 
     var barWidth=width/data.length;
     
-    plot3.append("g")
+    var drawXAxis = plot3.append("g")
         .attr("class","xAxis")
         .attr("transform","translate(0,"+height+")")
         .call(xAxis);
     
+    drawXAxis.append("title")
+            .text(function(d) { return d.Country; });
     /*drawXAxis.selectAll("text")
         .data(data)
         .enter().append("text")
