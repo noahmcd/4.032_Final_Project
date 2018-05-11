@@ -71,7 +71,7 @@ function dataloaded(error,data){
         y.domain(d3.extent(data, function(d){return +d.value}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
         console.log(d3.min(data,function(d){return +d.value;}));
         
-        var barWidth=width/data.length;
+        var barWidth=(width-50)/data.length;
         
         var bars = plot3.append("g")
             .selectAll("rect")
@@ -92,11 +92,11 @@ function dataloaded(error,data){
         .attr("transform","translate(40,0)")
         .call(yAxis);
 
-    var barWidth=width/data.length;
+    var barWidth=(width-50)/data.length;
     
     var drawXAxis = plot3.append("g")
         .attr("class","xAxis")
-        .attr("transform","translate(0,"+height+")")
+        .attr("transform","translate(40,"+height+")")
         .call(xAxis);
     
     drawXAxis.append("title")
