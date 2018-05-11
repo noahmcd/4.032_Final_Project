@@ -19,9 +19,8 @@ var blue   = "#66b2c5";
 var yellow = "#ffb400";
 var red    = "#c63232";
 var green  = "#72a746";
-var maxR   = 300;
-var minR   = 75;
-
+var maxR   = height;
+var minR   = height/10;
 
 var locations = {
     "South Sudan": {
@@ -71,12 +70,10 @@ function dateLoaded(error, refugees2015, refugees2016){
             cy: locations[sampleCountry].cy
         }
 
-        console.log(countryData);
-
         data.push(countryData);
     });
 
-    Circle(data);
+    Pulses(data);
 }
 
 function parseRefugeeData(d){
@@ -122,9 +119,7 @@ function FindDeltas(refugees2015, refugees2016) {
     return deltaRefugees;
 }
 
-function Circle(data) {
-
-    console.log(data);
+function Pulses(data) {
 
     var scaleR = d3.scaleSqrt().range([minR,maxR]);
 
@@ -167,10 +162,7 @@ function Circle(data) {
             .append("text")
             .attr("x", function(d) { return width * d.cx })
             .attr("y", function(d) { return height * d.cy })
-            .text(function(d) { 
-                console.log(d)
-                return d.name
-            });
+            .text(function(d) { return d.name });
 
         repeat();
 
@@ -198,10 +190,7 @@ function Circle(data) {
 
     data.forEach(function (countryData, i) {
         draw(scaleT(countryData.delta), i, red, countryData.cx, countryData.cy, scaleR(countryData.value), countryData.name);
-       
     });
-
-
 }
 
 window.addEventListener('resize', function(){

@@ -42,28 +42,33 @@
             <div>
                 <p>Explore how refugees move from the 5 largest ongoing refugee crises. Modify settings and see how the network reacts. Hover over a node to see the country name, and drag any part to move the network around. Start by clicking any button.</p>
             </div>
-            <div class="row">
+            <div style="margin-top: 50px" class="row">
                 <div class="col-sm-4">
                     <h4>Display Settings</h4>
-                    <div id = "yearBtn">Year of refugee flow <br>
+                    <div id = "yearBtn">
+                        <div class="btn-label">Year of refugee flow</div>
                         <button class="btn btn-default btnYear" id="2012">2012</button>
                         <button class="btn btn-default btnYear" id="2013">2013</button>
                         <button class="btn btn-default btnYear" id="2014">2014</button>
                         <button class="btn btn-default btnYear" id="2015">2015</button>
                         <button class="btn btn-default btnYear" id="2016">2016</button>
                     </div>
-                    <div id = "fieldBtn">Modify link strength with political indices <br>
+                    <div id = "fieldBtn">
+                        <div class="btn-label">Modify link strength with political indices</div>
                         <button class="btn btn-default btnPol" id="Political Stability and Absence of Violence/Terrorism: Estimate">Political Stability</button>
                         <button class="btn btn-default btnPol" id="Rule of Law: Estimate">Rule of Law</button>
                         <button class="btn btn-default btnPol" id="Government Effectiveness: Estimate">Government Effectiveness</button>
                     </div>
-                    Minimum refugees leaving each country <br>
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" >Number of Refugees:</span>
+                    <div id="thresholdBtn">
+                        <div class="btn-label">Minimum refugees leaving each country</div>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" >Number of Refugees:</span>
+                            </div>
+                            <input type="number" min="1" max="" step="10" placeholder="ex. 500" class="form-control" id="input1">
                         </div>
-                        <input type="number" min="1" max="" step="10" placeholder="ex. 500" class="form-control" id="input1">
                     </div>
+                    
 
                     <h4>Legend</h4>
                     <div id="leg-div">
