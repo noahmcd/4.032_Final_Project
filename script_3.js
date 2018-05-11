@@ -78,7 +78,7 @@ function dataloaded(error,data){
             .data(data)
             .enter().append("rect")
             .attr("class","bar")
-            .attr("x",function(d,i){ return i*barWidth+1;})
+            .attr("x",function(d,i){ return i*barWidth+41;})
             .attr("y",function(d){ return height - y(d.value);})
             .attr("height",function(d){ return Math.abs(y(d.value));})
             .attr("width",barWidth-1)
@@ -99,8 +99,8 @@ function dataloaded(error,data){
         .attr("transform","translate(40,"+height+")")
         .call(xAxis);
     
-    drawXAxis.append("title")
-            .text(function(d) { return d.Country; });
+    /*drawXAxis.append("title")
+            .text(function(d) { return d.Country; });*/
     /*drawXAxis.selectAll("text")
         .data(data)
         .enter().append("text")
@@ -111,13 +111,15 @@ function dataloaded(error,data){
         .text(function(d){return d.Country});*/
         //^this might throw an error
 
-    plot3.append("text")
+    plot3.append("g")
+        .append("text")
         .attr("transform","translate(-35,"+(height+margin.b)/2+") rotate(-90)")
         .attr("x", 0)
         .attr("y", 0)
         .text("Political Stability Index");
 
-    plot3.append("text")
+    plot3.append("g")
+        .append("text")
         .attr("transform","translate("+width/2+","+(height + margin.b - 5)+")")
         .attr("x", 0)
         .attr("y", 0)
