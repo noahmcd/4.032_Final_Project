@@ -8,7 +8,7 @@ var plot3=d3.select('#plot3').append('svg')
     .append("g")
     .attr("transform","translate("+(margin.l)+","+margin.t+")");
 
-var x = d3.scaleBand().range([0,width-50]);
+var x = d3.scaleBand().range([0,width-60]);
 var y = d3.scaleLinear().range([height,0]);
 
 var xAxis = d3.axisBottom(x);
@@ -71,7 +71,7 @@ function dataloaded(error,data){
         y.domain(d3.extent(data, function(d){return +d.value}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
         console.log(d3.min(data,function(d){return +d.value;}));
         
-        var barWidth=(width-50)/data.length;
+        var barWidth=(width-60)/data.length;
         
         var bars = plot3.append("g")
             .selectAll("rect")
@@ -92,7 +92,7 @@ function dataloaded(error,data){
         .attr("transform","translate(60,0)")
         .call(yAxis);
 
-    var barWidth=(width-50)/data.length;
+    var barWidth=(width-60)/data.length;
     
     var drawXAxis = plot3.append("g")
         .attr("class","xAxis")
@@ -113,7 +113,7 @@ function dataloaded(error,data){
 
     plot3.append("g")
         .append("text")
-        .attr("transform","translate(0,"+(height+margin.b)/2+") rotate(-90)")
+        .attr("transform","translate(20,"+(height+margin.b)/2+") rotate(-90)")
         .attr("x", 0)
         .attr("y", 0)
         .text("Political Stability Index");
