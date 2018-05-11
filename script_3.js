@@ -90,16 +90,18 @@ function dataloaded(error,data){
         .attr("class", "yAxis")
         .call(yAxis);
 
-    /*plot3.append("g")
+    plot3.append("g")
         .attr("class","xAxis")
-        .attr("transform","translate(0,"+height+")")
         .call(xAxis)
         .selectAll("text")
         .data(data)
-        .enter()
+        .enter().append("text")
+        .attr("transform","translate(0,"+height+")")
         .style("text-anchor","end")
         .attr("transform",function(d){return "rotate(-65)";})
-        .text(function(d){return d.Country});*/
+        .attr("x", function(d){return d.Country})
+        .attr("y", 0)
+        .text(function(d){return d.Country});
         //^this might throw an error
 
     plot3.append("text")
