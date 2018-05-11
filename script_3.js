@@ -8,7 +8,7 @@ var plot3=d3.select('#plot3').append('svg')
     .append("g")
     .attr("transform","translate("+(margin.l)+","+margin.t+")");
 
-var x = d3.scaleBand().range([40,width]);
+var x = d3.scaleBand().range([0,width-50]);
 var y = d3.scaleLinear().range([height,0]);
 
 var xAxis = d3.axisBottom(x);
@@ -89,13 +89,14 @@ function dataloaded(error,data){
 
     plot3.append("g")
         .attr("class", "yAxis")
+        .attr("transform","translate(40,0)")
         .call(yAxis);
 
     var barWidth=width/data.length;
     
     var drawXAxis = plot3.append("g")
         .attr("class","xAxis")
-        .attr("transform","translate(40,"+height+")")
+        .attr("transform","translate(0,"+height+")")
         .call(xAxis);
     
     drawXAxis.append("title")
