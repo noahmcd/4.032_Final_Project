@@ -21,7 +21,49 @@ var queue=d3.queue().defer(d3.csv,"data/political_stability.csv",parseData)
 function dataloaded(error,data){
     d3.selectAll(".btnBarChart").on("click",function(){
         var thisYear=this.getAttribute("id");
-        draw(thisYear, data)
+        var indices = []
+        for(var i=0; i<data.length; i++){
+            switch(thisYear){
+                case "2012": 
+                    indices.push({
+                    Country: data[i].Country,
+                    value: data[i].val12
+                    });
+                    break;
+                case "2013": 
+                    indices.push({
+                    Country: data[i].Country,
+                    value: data[i].val13
+                    });
+                    break;
+                case "2014": 
+                    indices.push({
+                    Country: data[i].Country,
+                    value: data[i].val14
+                    });
+                    break;
+                case "2015": 
+                    indices.push({
+                    Country: data[i].Country,
+                    value: data[i].val15
+                    });
+                    break;
+                case "2016": 
+                    indices.push({
+                    Country: data[i].Country,
+                    value: data[i].val16
+                    })
+                    break;
+                case "Average": 
+                    indices.push({
+                    Country: data[i].Country,
+                    value: data[i].average
+                    });
+                    break;
+            }
+        }
+        console.log(indices);
+        draw(thisYear, indices)
     })
 }
 
@@ -37,9 +79,9 @@ function draw(year, data){
     bars.enter().append("rect")
         .attr("class","bar")
         .attr("x",function(d,i){ return i*barWidth+1;})
-        .attr("y",function(d){ return y(d.year);})
-        .attr("height",function(d){ return height-y(d.year);})
-        .attr("width",barWidth-1)
+        .attr("y",function(d){ return height;})
+        .attr("height",function(d){ return height-y(d.value);})
+        .attr("length",barWidth-1)
         .attr("fill","#99bbff");
 }
 
@@ -62,7 +104,7 @@ plot3.append("text")
     .text("Political Stability Index");
 
 plot3.append("text")
-    .attr("transform","translate("+width/2+","+height+margin.b-5+")")
+    .attr("transform","translate("+width/2+","+(height + margin.b - 5)+")")
     .attr("x", 0)
     .attr("y", 0)
     .text("Country");
@@ -70,6 +112,11 @@ plot3.append("text")
 function parseData(d){
     return{
         Country: d.Country,
-        //year: d.year
+        val12: +d[2012],
+        val13: +d[2013],
+        val14: +d[2014],
+        val15: +d[2015],
+        val16: +d[2016],
+        average: +d.Average
     }
 }
