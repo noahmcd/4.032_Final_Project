@@ -72,15 +72,19 @@ function dataloaded(error,data){
         y.domain(d3.extent(data, function(d){return +d.year}));//d3.min(data,function(d){return +d.year;}),d3.max(data,function(d){return +d.year;}));
 
         var barWidth=width/data.length;
-        var bars=plot3.selectAll(".bar").remove().exit().data(data);
-
-        bars.enter().append("rect")
+        
+        var bars = plot3.append("g")
+            .selectAll("rect")
+            .data(data)
+            .enter().append("rect")
             .attr("class","bar")
             .attr("x",function(d,i){ return i*barWidth+1;})
             .attr("y",function(d){ return height-y(d.value);})
             .attr("height",function(d){ return y(d.value);})
             .attr("width",barWidth-1)
             .attr("fill","#99bbff");
+        
+        bars.exit().remove();
     }
 
     plot3.append("g")
