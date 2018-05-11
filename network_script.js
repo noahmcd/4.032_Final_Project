@@ -15,7 +15,7 @@ svg.append("rect")
     .attr("rx", 10)
     .attr("ry", 10);
 
-var nodeColor = ["orange","red","green","yellow","brown","purple","blue"];
+var nodeColor = ["#a86464","#BA966B","#597031","#A1941D","#764E2C","#83609b","#3F7F60"];
 
 var queue = d3.queue()
     .defer(d3.csv, "data/refugees_5_largest.csv", parseRefugees)
