@@ -24,7 +24,6 @@ function addRefugee(x, y) {
         function repeat () {
         
             //console.log("drawingggg", className)
-
             refugee
                 .style("opacity",.7)
                 .transition()
@@ -38,5 +37,5 @@ function addRefugee(x, y) {
 }
 
 // Random noise
-populate(50, 50, 50, 50, 100, 300);
-
+populate(50, 50, 50, 50, 100, 500);
+populate(25, 25, 40, 40, 100, 25);

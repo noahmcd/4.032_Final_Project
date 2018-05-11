@@ -73,7 +73,7 @@ function dateLoaded(error, refugees2015, refugees2016){
 
         data.push(countryData);
 
-        populate(locations[sampleCountry].cx*100, locations[sampleCountry].cy*100, 20, 20, 100, Math.log(origins2016[sampleCountry])*5);
+        populate(locations[sampleCountry].cx*100, locations[sampleCountry].cy*100, 20, 20, 75, Math.log(origins2016[sampleCountry])*6);
     });
 
     Pulses(data);
