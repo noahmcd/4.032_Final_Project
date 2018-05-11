@@ -21,6 +21,14 @@ h3 {
     height: 400px;
 }
 
+.bar {
+   opacity: .7;
+}
+
+.bar:hover {
+   opacity: 1;
+}
+
 .node {
     stroke: black;
     cursor: pointer;
