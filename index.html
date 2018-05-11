@@ -4,8 +4,35 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="style.css" rel="stylesheet"/>
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300i,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400,500,700|Roboto+Mono" rel="stylesheet">
     </head>
     <body>
+            <div id="hero">
+                <h1>REFUGEE</h1>
+            </div>
+            <div id="intro">
+                <div class="foreground-text">
+                    <h3>REFUGEE CRISIS</h3>
+                    <p>The first international co-ordination of refugee affairs came with the creation by the League of Nations in 1921 of the High Commission for Refugees and the appointment of Fridtjof Nansen as its head.The first international</p>
+                </div>
+                <div class="background-text">
+                    <h2>NIGERIASYRIASOUTHSUDANSOMALIAAFGHANISTAN</h2>
+                </div>
+            </div>
+            <div id="map-viz">
+                <div class="foreground-text">
+                    <h3>REFUGEE CRISIS</h3>
+                    <p>The first international co-ordination of refugee affairs came with the creation by the League of Nations in 1921 of the High Commission for Refugees and the appointment of Fridtjof Nansen as its head.The first international
+                    <br/>
+                    <br/>
+                    <span id="percent-change-threshold">10</span>% change = 1 pulse/sec<br/>
+                    <span id="people-threshold">1000</span> people = 100px radius
+                    </p>
+                </div>
+            </div>
+            
         <div class="container">
             <div>
                 <h3>Refugee Network Diagram</h3>
@@ -49,7 +76,10 @@
             </div>
         </div>
         
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src = "network_script.js"></script>
+        <script src = "map script.js"></script>
     </body>
 </html>

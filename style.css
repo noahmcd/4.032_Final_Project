@@ -1,7 +1,10 @@
+body {
+   font-family: 'Oswald', sans-serif;
+}
 #svg {
     width: 100%;
     height: 600px;
-    background-color: #FFFBF8;
+    background-color: #FAFAF5;
 }
 
 #legend {
@@ -45,3 +48,73 @@
 .input-group:hover{
     opacity: 1;
 }
+
+
+#hero {
+    height: 100vh;
+    overflow: hidden;
+}
+
+#hero h1{
+    font-size: 40vh;
+    text-align: center;
+    line-height: 100vh;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+}
+
+#intro {
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+#intro .foreground-text {
+    width: 400px;
+    margin-left: 20%;
+    margin-top: 100px;
+}
+
+#intro h3 {
+    margin-bottom: 40px;
+}
+
+#intro h2 {
+    width: 120%;
+    margin-left: -10%;
+    margin-top: -10px;
+    word-wrap: break-word;
+    position: absolute;
+    top: 0;
+    color: #FAFAF5;
+    z-index: -10;
+    font-size: 280px;
+    line-height: 180px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    text-align: center;
+}
+
+#map-viz {
+    /* Aspect ratio of the background image */
+    height: 43vw;
+    width: 100vw;
+    background-color: white;
+    background-image: url('/img/africa 3.png');
+    background-size: 100% 100%;
+
+    position: relative;
+    overflow: hidden;
+}
+
+#map-viz svg {
+    position: absolute;
+    top: 0
+}
+
+#map-viz .foreground-text {
+    width: 400px;
+    margin-left: 20%;
+    margin-top: 50px;
+}
+
