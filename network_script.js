@@ -1,6 +1,5 @@
-var width = d3.select("#svg").node().clientWidth;
-var height = 700;//d3.select("#svg").node().clientHeight;
-
+var widthSVG = d3.select("#svg").node().clientWidth;
+var heightSVG = 700;//d3.select("#svg").node().clientHeight;
 
 var svg = d3.select("#svg")
     .append("svg")
