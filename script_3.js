@@ -6,7 +6,7 @@ var plot3=d3.select('#plot3').append('svg')
     .attr('width',width+margin.r+margin.l)
     .attr('height',height+margin.t+margin.b)
     .append("g")
-    .attr("transform","translate("+margin.l+","+margin.t+")");
+    .attr("transform","translate("+(20+margin.l)+","+margin.t+")");
 
 var x = d3.scaleBand().range([0,width]);
 var y = d3.scaleLinear().range([height,0]);
@@ -20,11 +20,11 @@ var queue=d3.queue().defer(d3.csv,"data/political_stability.csv",parseData)
 function dataloaded(error,data){
     d3.selectAll(".btnBarChart").on("click",function(){
         var thisYear=this.getAttribute("id");
-        draw(thisYear)
+        draw(thisYear, data)
     })
 }
 
-function draw(year){
+function draw(year, data){
     console.log(year)
 
     x.domain(data.map(function(d){return d.Country;}));
@@ -33,7 +33,8 @@ function draw(year){
     var barWidth=width/data.length;
     var bars=plot3.selectAll(".bar").remove().exit().data(data);
 
-    bars.enter().append("rect").attr("class","bar")
+    bars.enter().append("rect")
+        .attr("class","bar")
         .attr("x",function(d,i){ return i*barWidth+1;})
         .attr("y",function(d){ return y(d.year);})
         .attr("height",function(d){ return height-y(d.year);})
@@ -54,7 +55,7 @@ plot3.append("g")
     //^this might throw an error
 
 plot3.append("text")
-    .attr("transform","translate(-35,"+(height+margin.b)/2+") rotate(-90)")
+    .attr("transform","translate(-25,"+(height+margin.b)/2+") rotate(-90)")
     .attr("x", 0)
     .attr("y", 0)
     .text("Political Stability Index");
